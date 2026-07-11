@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konmario-pro — macht Ordnung. macht Freude.</title>
+<meta name="description" content="Die Werkzeug-Suite, gebaut in fünf Tagen auf einem 14 Jahre alten MacBook — von Mario + KI.">
+<style>
+  :root { --bg:#12121c; --card:#1e1e30; --text:#e8e8f4; --sub:#8f8fb0;
+          --akzent:#8b7cf8; --pink:#ff4d8d; --teal:#2dd4bf; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,"Helvetica Neue",Segoe UI,sans-serif;
+         background:var(--bg); color:var(--text); line-height:1.6; }
+  .huelle { max-width:880px; margin:0 auto; padding:0 22px; }
+
+  header { text-align:center; padding:90px 0 50px; }
+  h1 { font-size:clamp(34px,7vw,60px); letter-spacing:2px; font-weight:900;
+       background:linear-gradient(90deg,var(--pink),var(--akzent),var(--teal));
+       -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .slogan { font-size:clamp(16px,3vw,21px); color:var(--sub); margin-top:10px; }
+  .unter { margin-top:18px; font-size:15px; color:var(--sub); }
+  .unter b { color:var(--text); }
+
+  .zahlen { display:flex; justify-content:center; gap:14px; flex-wrap:wrap;
+            margin:44px 0; }
+  .zahl { background:var(--card); border-radius:16px; padding:18px 26px;
+          text-align:center; min-width:130px; }
+  .zahl b { display:block; font-size:30px;
+            background:linear-gradient(90deg,var(--akzent),var(--teal));
+            -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .zahl span { font-size:12.5px; color:var(--sub); }
+
+  h2 { font-size:14px; letter-spacing:2px; text-transform:uppercase;
+       color:var(--sub); margin:56px 0 18px; display:flex; align-items:center; gap:10px; }
+  h2 .punkt { width:9px; height:9px; border-radius:50%; display:inline-block; }
+
+  .story p { color:var(--sub); margin-bottom:14px; font-size:16px; }
+  .story b { color:var(--text); }
+
+  .galerie { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+             gap:12px; }
+  .werkzeug { background:var(--card); border-radius:14px; padding:14px 16px;
+              border-left:3px solid var(--kat,#444); }
+  .werkzeug h3 { font-size:15px; margin-bottom:4px; }
+  .werkzeug p { font-size:12.5px; color:var(--sub); line-height:1.45; }
+
+  footer { text-align:center; padding:70px 0 46px; color:var(--sub); font-size:14px; }
+  footer .stern { font-size:22px; color:var(--akzent); display:block; margin-bottom:10px; }
+</style>
+</head>
+<body>
+<div class="huelle">
+
+<header>
+  <h1>KONMARIO-PRO</h1>
+  <p class="slogan">macht Ordnung. macht Freude.</p>
+  <p class="unter">Eine Werkzeug-Suite für den Mac — gebaut in fünf Tagen,
+  auf einem <b>14&nbsp;Jahre alten MacBook Pro</b>, von <b>Mario</b>
+  (Ideen, Bug-Reports, Qualitätskontrolle) und <b>Claude Fable&nbsp;5</b> (Tipparbeit).</p>
+</header>
+
+<div class="zahlen">
+  <div class="zahl"><b>36</b><span>Werkzeuge</span></div>
+  <div class="zahl"><b>7</b><span>eigene Apps</span></div>
+  <div class="zahl"><b>4</b><span>Stimm-Technologien</span></div>
+  <div class="zahl"><b>2012</b><span>Baujahr des Macs</span></div>
+</div>
+
+<section class="story">
+  <h2><span class="punkt" style="background:var(--pink)"></span>Die Geschichte</h2>
+  <p>Am Anfang standen <b>zwei Python-Skripte in einem unordentlichen Ordner</b>
+  und die Frage: „Kann man das nicht in einer Art kleiner App zusammenfassen?"</p>
+  <p>Fünf Tage später: eine native Mac-App mit Menüleisten-Begleiter und
+  schwebendem Desktop-Cockpit. Werkzeuge, die <b>sprechen</b> (mit siebzehn
+  Stimmen aus vier Technologien — von Apples Anna bis zur lokalen KI Kerstin),
+  <b>zuhören</b> (Whisper tippt Diktate ab, komplett offline), <b>sehen</b>
+  (Texterkennung, KI-Fehlerdiagnose per Screenshot) und <b>nachts arbeiten</b>
+  (der Downloads-Ordner sortiert sich stündlich von selbst).</p>
+  <p>Alles läuft lokal auf einem MacBook, das offiziell seit Jahren
+  keine Updates mehr bekommt — am Leben gehalten mit OpenCore, modernem
+  Python und einer gewissen Sturheit. <b>Beliefert wird, wer sich
+  beliefern lässt.</b></p>
+</section>
+
+<section><h2><span class="punkt" style="background:#2dd4bf"></span>Alltag & Ordnung (8)</h2><div class="galerie"><div class="werkzeug" style="--kat:#2dd4bf"><h3>⏰ Aufräum-Automatik</h3><p>AN/AUS: Downloads sortieren sich stündlich von selbst — auch ohne Toolbox</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>💾 Projekt-Backup</h3><p>Sichert den Playgrounds-Ordner als datiertes ZIP-Archiv</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🧹 Download-Sortierer</h3><p>Sortiert den Downloads-Ordner automatisch nach Dateityp</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🔍 Duplikat-Finder</h3><p>Findet inhaltlich identische Dateien im Downloads-Ordner</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📶 Internet-Check</h3><p>Eingebauter Apple-Speedtest: Download, Upload, Reaktionszeit (~20 Sek.)</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🔑 Passwort-Generator</h3><p>Erzeugt ein sicheres Passwort und kopiert es in die Zwischenablage</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📊 Speicherplatz-Radar</h3><p>Zeigt die größten Dateien und Ordner in deinem Benutzerordner</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>☕️ Wachhalter</h3><p>AN/AUS: Mac bleibt wach (Downloads, lange Läufe) — Display darf ausgehen</p></div></div></section>
+<section><h2><span class="punkt" style="background:#ff4d8d"></span>ADHS-Set (6)</h2><div class="galerie"><div class="werkzeug" style="--kat:#ff4d8d"><h3>🎲 Entscheidungs-Würfel</h3><p>Optionen kopieren (eine pro Zeile), Klick — der Würfel entscheidet</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>⏲ Fokus-Timer</h3><p>25 Minuten Fokus, Anna sagt laut Bescheid — nochmal klicken bricht ab</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🧠 Gehirn-Parkplatz</h3><p>Kopierten Gedanken parken — bei leerer Zwischenablage: Liste zeigen</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🧾 Haushaltsbuch</h3><p>Ausgaben in 2 Sekunden erfassen — ein Feld, Rest macht die App</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>💬 Schnell-Eintrag</h3><p>Dialogfenster: Ausgabe oder Tagebuch-Moment eintragen, ohne App zu öffnen</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🖊 Mini-Tagebuch</h3><p>Ein Satz pro Moment — Beweise sammeln gegen den Wochennebel</p></div></div></section>
+<section><h2><span class="punkt" style="background:#8b7cf8"></span>Stimme & KI (10)</h2><div class="galerie"><div class="werkzeug" style="--kat:#8b7cf8"><h3>🤖 KI-Bildbenenner</h3><p>Benennt Bilder anhand ihres Inhalts um (Google Gemini)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎤 Diktat</h3><p>Klick = aufnehmen, Klick = Text (lokal per Whisper) → Zwischenablage + Parkplatz</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🚑 Fehler-Doktor</h3><p>Fehlermeldung mit Fadenkreuz einrahmen — die KI erklärt sie dir</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🧠 Dokument-Zusammenfassung</h3><p>Erstellt 3-Satz-Zusammenfassungen für Dokumente (Google Gemini)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>📅 Termin-Fänger</h3><p>Kopierten Text nach Terminen absuchen → fertig in den Kalender</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>✍️ Text-Polierer</h3><p>Zwischenablage: Rechtschreibung & Stil korrigieren — Ergebnis liegt bereit</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>📸 Text-Sauger</h3><p>Bereich einrahmen → aller Text darin landet in der Zwischenablage (lokal!)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎨 Traumfabrik</h3><p>Bildidee kopieren → KI malt sie → Ergebnis landet auf dem Schreibtisch</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🗣 Vorlese-Knopf</h3><p>Liest die Zwischenablage vor — nochmal klicken stoppt</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎙 Vorlese-Studio</h3><p>Stimme per Pfeiltasten wählen, probehören, Zwischenablage vorlesen</p></div></div></section>
+<section><h2><span class="punkt" style="background:#60a5fa"></span>Briefings (2)</h2><div class="galerie"><div class="werkzeug" style="--kat:#60a5fa"><h3>📰 Nachrichten-Briefing</h3><p>Die 5 aktuellsten Tagesschau-Schlagzeilen, direkt vom RSS-Feed</p></div><div class="werkzeug" style="--kat:#60a5fa"><h3>🌤 Wetter-Briefing</h3><p>Aktuelles Wetter und Tagesausblick für deinen Standort</p></div></div></section>
+<section><h2><span class="punkt" style="background:#fbbf24"></span>Apps & Lernen (7)</h2><div class="galerie"><div class="werkzeug" style="--kat:#fbbf24"><h3>⚓ Dock — Abend-Lounge</h3><p>Abend-Reflexion mit Missionen und Trophäen (öffnet im Browser)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>💻 Hacker-Terminal</h3><p>Das legendäre grüne Terminal — Marios erstes HTML-Projekt</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🌐 Homepage-Bauer</h3><p>Generiert konmario-pro.com frisch aus deiner Toolbox (Website/index.html)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>📝 Markdown-Merger</h3><p>Führt Markdown-Dateien zusammen und bereinigt KI-Zitate (öffnet im Browser)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🐍 Python-Spielplatz</h3><p>Öffnet JupyterLab mit deinen Lern-Notizbüchern (Python 3.13)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🛸 Schwebe-Cockpit</h3><p>Schwebendes Mini-Cockpit: Uhr, Status, Blitz-Knöpfe — immer im Blick</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🧙 Werkzeug-Schmied</h3><p>Baut das Gerüst für dein nächstes Werkzeug — drei Fragen, fertig</p></div></div></section>
+<section><h2><span class="punkt" style="background:#a3a3c2"></span>Extras (3)</h2><div class="galerie"><div class="werkzeug" style="--kat:#a3a3c2"><h3>✳ Gruß von Fable 5</h3><p>Ein Abschiedsgeschenk — öffnet sich als eigenes Fenster. Maus mitnehmen.</p></div><div class="werkzeug" style="--kat:#a3a3c2"><h3>🐍 Schlange</h3><p>Der Spielhallen-Klassiker als echtes Desktop-Fenster (Pfeiltasten!)</p></div><div class="werkzeug" style="--kat:#a3a3c2"><h3>🌌 Die Unendlichkeits-Maschine</h3><p>Zoomt live in ein mathematisches Objekt mit unendlich viel Detail</p></div></div></section>
+
+<footer>
+  <span class="stern">✳</span>
+  Konmario-pro · by Fable&nbsp;5 + Mario · Stand: 11.07.2026<br>
+  Läuft privat und lokal — diese Seite ist nur das Schaufenster.
+</footer>
+
+</div>
+</body>
+</html>
