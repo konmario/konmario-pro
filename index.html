@@ -4,48 +4,129 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Konmario-pro — macht Ordnung. macht Freude.</title>
-<meta name="description" content="Die Werkzeug-Suite, gebaut in fünf Tagen auf einem 14 Jahre alten MacBook — von Mario + KI.">
+<meta name="description" content="Die Werkzeug-Suite, die auf einem 14 Jahre alten MacBook entstand — 40 Werkzeuge, lokale KI, null laufende Kosten. Von Mario + Claude Fable 5.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
 <style>
   :root { --bg:#12121c; --card:#1e1e30; --text:#e8e8f4; --sub:#8f8fb0;
           --akzent:#8b7cf8; --pink:#ff4d8d; --teal:#2dd4bf; }
   * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
   body { font-family:-apple-system,"Helvetica Neue",Segoe UI,sans-serif;
-         background:var(--bg); color:var(--text); line-height:1.6; }
+         background:var(--bg); color:var(--text); line-height:1.6;
+         overflow-x:hidden; }
+
+  /* Die wandernden Neon-Wolken — das Markenzeichen der Toolbox */
+  body::before, body::after {
+    content:""; position:fixed; width:55vw; height:55vw; border-radius:50%;
+    filter:blur(130px); opacity:.16; z-index:-1;
+    animation:treiben 22s ease-in-out infinite alternate; }
+  body::before { background:var(--akzent); top:-18vw; left:-14vw; }
+  body::after  { background:var(--pink); bottom:-22vw; right:-14vw;
+                 animation-duration:28s; }
+  @keyframes treiben { to { transform:translate(7vw,6vh) scale(1.18); } }
+
   .huelle { max-width:880px; margin:0 auto; padding:0 22px; }
 
-  header { text-align:center; padding:90px 0 50px; }
-  h1 { font-size:clamp(34px,7vw,60px); letter-spacing:2px; font-weight:900;
-       background:linear-gradient(90deg,var(--pink),var(--akzent),var(--teal));
-       -webkit-background-clip:text; background-clip:text; color:transparent; }
+  header { text-align:center; padding:96px 0 46px; }
+  h1 { font-size:clamp(34px,7vw,62px); letter-spacing:2px; font-weight:900;
+       background:linear-gradient(90deg,var(--pink),var(--akzent),var(--teal),var(--pink));
+       background-size:300% 100%;
+       -webkit-background-clip:text; background-clip:text; color:transparent;
+       animation:schimmer 7s linear infinite; }
+  @keyframes schimmer { to { background-position:300% 0; } }
   .slogan { font-size:clamp(16px,3vw,21px); color:var(--sub); margin-top:10px; }
   .unter { margin-top:18px; font-size:15px; color:var(--sub); }
   .unter b { color:var(--text); }
 
-  .zahlen { display:flex; justify-content:center; gap:14px; flex-wrap:wrap;
-            margin:44px 0; }
-  .zahl { background:var(--card); border-radius:16px; padding:18px 26px;
-          text-align:center; min-width:130px; }
-  .zahl b { display:block; font-size:30px;
+  .zahlen { display:flex; justify-content:center; gap:13px; flex-wrap:wrap;
+            margin:42px 0; }
+  .zahl { background:var(--card); border-radius:16px; padding:16px 22px;
+          text-align:center; min-width:118px;
+          border:1px solid rgba(139,124,248,.15); }
+  .zahl b { display:block; font-size:29px;
             background:linear-gradient(90deg,var(--akzent),var(--teal));
             -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .zahl span { font-size:12.5px; color:var(--sub); }
+  .zahl span { font-size:12px; color:var(--sub); }
 
   h2 { font-size:14px; letter-spacing:2px; text-transform:uppercase;
-       color:var(--sub); margin:56px 0 18px; display:flex; align-items:center; gap:10px; }
-  h2 .punkt { width:9px; height:9px; border-radius:50%; display:inline-block; }
+       color:var(--sub); margin:58px 0 18px; display:flex; align-items:center; gap:10px; }
+  h2 .punkt { width:9px; height:9px; border-radius:50%; display:inline-block;
+              box-shadow:0 0 10px currentColor; }
 
   .story p { color:var(--sub); margin-bottom:14px; font-size:16px; }
   .story b { color:var(--text); }
 
+  /* Die Chronik: ein Zeitstrahl der fünf Tage */
+  .chronik { position:relative; padding-left:26px; }
+  .chronik::before { content:""; position:absolute; left:6px; top:6px; bottom:6px;
+                     width:2px; background:linear-gradient(var(--pink),var(--akzent),var(--teal)); }
+  .tag { position:relative; margin-bottom:22px; }
+  .tag::before { content:""; position:absolute; left:-26px; top:7px;
+                 width:12px; height:12px; border-radius:50%;
+                 background:var(--akzent); box-shadow:0 0 12px var(--akzent); }
+  .tag h3 { font-size:14px; color:var(--teal); margin-bottom:3px; }
+  .tag p { font-size:14.5px; color:var(--sub); }
+  .tag b { color:var(--text); }
+
   .galerie { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
              gap:12px; }
   .werkzeug { background:var(--card); border-radius:14px; padding:14px 16px;
-              border-left:3px solid var(--kat,#444); }
+              border:1px solid transparent;
+              border-left:3px solid var(--kat,#444);
+              transition:transform .18s, box-shadow .18s, border-color .18s; }
+  .werkzeug:hover { transform:translateY(-4px);
+                    border-color:var(--kat,#444);
+                    box-shadow:0 10px 26px rgba(0,0,0,.45); }
   .werkzeug h3 { font-size:15px; margin-bottom:4px; }
   .werkzeug p { font-size:12.5px; color:var(--sub); line-height:1.45; }
 
-  footer { text-align:center; padding:70px 0 46px; color:var(--sub); font-size:14px; }
+  /* Sanftes Einschweben beim Scrollen */
+  .rev { opacity:0; transform:translateY(18px);
+         transition:opacity .6s ease, transform .6s ease; }
+  .rev.da { opacity:1; transform:none; }
+
+  /* Die lebendige Galerie: Suchfeld + Regal-Filter */
+  #suche { width:100%; font-size:17px; padding:13px 18px; border-radius:14px;
+           border:2px solid #2e2e4a; background:var(--card); color:var(--text);
+           outline:none; margin-bottom:12px; }
+  #suche:focus { border-color:var(--akzent);
+                 box-shadow:0 0 22px rgba(139,124,248,.25); }
+  #suche::placeholder { color:#55557a; }
+  .filter { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+  .chip { font-size:12.5px; color:var(--sub); background:var(--card);
+          border:1px solid #2e2e4a; border-radius:999px; padding:5px 13px;
+          cursor:pointer; transition:all .15s; user-select:none; }
+  .chip:hover { border-color:var(--akzent); color:var(--text); }
+  .chip.an { border-color:var(--akzent); color:#fff;
+             background:rgba(139,124,248,.25); }
+
+  /* Das spielbare Mandelbrot */
+  #mandelbrot { width:100%; height:360px; border-radius:16px; cursor:crosshair;
+                display:block; background:#000;
+                border:1px solid rgba(139,124,248,.25); }
+  .mandel-zeile { display:flex; justify-content:space-between; align-items:center;
+                  margin-top:10px; font-size:13px; color:var(--sub); }
+  .mandel-zeile button { background:var(--card); color:var(--text);
+    border:1px solid #2e2e4a; border-radius:10px; padding:7px 14px;
+    font-size:13px; cursor:pointer; }
+  .mandel-zeile button:hover { border-color:var(--akzent); }
+
+  /* Die kleine Überraschung */
+  #stern { cursor:pointer; transition:transform .2s; display:inline-block; }
+  #stern:hover { transform:scale(1.3) rotate(20deg); }
+  .funke { position:fixed; top:-30px; font-size:20px; z-index:9;
+           animation:funkeln 2s ease-in forwards; pointer-events:none; }
+  @keyframes funkeln { to { transform:translateY(105vh) rotate(540deg);
+                             opacity:.1; } }
+  #botschaft { opacity:0; transition:opacity 1.2s; font-size:15px;
+               color:var(--teal); margin-top:12px; }
+  #botschaft.zeig { opacity:1; }
+
+  footer { text-align:center; padding:72px 0 46px; color:var(--sub); font-size:14px; }
   footer .stern { font-size:22px; color:var(--akzent); display:block; margin-bottom:10px; }
+  footer a { color:var(--teal); text-decoration:none; }
+  footer a:hover { text-decoration:underline; }
+  .kleiner { font-size:12px; margin-top:10px; opacity:.75; }
 </style>
 </head>
 <body>
@@ -54,47 +135,246 @@
 <header>
   <h1>KONMARIO-PRO</h1>
   <p class="slogan">macht Ordnung. macht Freude.</p>
-  <p class="unter">Eine Werkzeug-Suite für den Mac — gebaut in fünf Tagen,
-  auf einem <b>14&nbsp;Jahre alten MacBook Pro</b>, von <b>Mario</b>
-  (Ideen, Bug-Reports, Qualitätskontrolle) und <b>Claude Fable&nbsp;5</b> (Tipparbeit).</p>
+  <p class="unter">Die Werkzeug-Suite, die in einer Woche auf einem
+  <b>14&nbsp;Jahre alten MacBook Pro</b> entstand — von <b>Mario</b>
+  (Ideen, Bug-Reports, Qualitätskontrolle) und <b>Claude Fable&nbsp;5</b>
+  (Tipparbeit). Läuft lokal, spricht, hört, sieht — und diese Seite
+  hier hat sie selbst geschrieben.</p>
 </header>
 
 <div class="zahlen">
-  <div class="zahl"><b>36</b><span>Werkzeuge</span></div>
+  <div class="zahl"><b>40</b><span>Werkzeuge</span></div>
   <div class="zahl"><b>7</b><span>eigene Apps</span></div>
-  <div class="zahl"><b>4</b><span>Stimm-Technologien</span></div>
+  <div class="zahl"><b>17</b><span>Stimmen</span></div>
   <div class="zahl"><b>2012</b><span>Baujahr des Macs</span></div>
+  <div class="zahl"><b>0&nbsp;€</b><span>laufende Kosten</span></div>
 </div>
 
 <section class="story">
-  <h2><span class="punkt" style="background:var(--pink)"></span>Die Geschichte</h2>
-  <p>Am Anfang standen <b>zwei Python-Skripte in einem unordentlichen Ordner</b>
-  und die Frage: „Kann man das nicht in einer Art kleiner App zusammenfassen?"</p>
-  <p>Fünf Tage später: eine native Mac-App mit Menüleisten-Begleiter und
-  schwebendem Desktop-Cockpit. Werkzeuge, die <b>sprechen</b> (mit siebzehn
-  Stimmen aus vier Technologien — von Apples Anna bis zur lokalen KI Kerstin),
-  <b>zuhören</b> (Whisper tippt Diktate ab, komplett offline), <b>sehen</b>
-  (Texterkennung, KI-Fehlerdiagnose per Screenshot) und <b>nachts arbeiten</b>
-  (der Downloads-Ordner sortiert sich stündlich von selbst).</p>
-  <p>Alles läuft lokal auf einem MacBook, das offiziell seit Jahren
-  keine Updates mehr bekommt — am Leben gehalten mit OpenCore, modernem
-  Python und einer gewissen Sturheit. <b>Beliefert wird, wer sich
-  beliefern lässt.</b></p>
+  <h2><span class="punkt" style="background:var(--pink);color:var(--pink)"></span>Worum es geht</h2>
+  <p>Konmario-pro ist eine private Mac-App: <b>ein Fenster, 40 Werkzeuge</b> —
+  vom Download-Sortierer über ein ADHS-freundliches Haushaltsbuch bis zum
+  Fehler-Doktor, der Screenshots von Fehlermeldungen per KI erklärt.
+  Dazu eine Menüleisten-Version, ein schwebendes Desktop-Cockpit und ein
+  Nachtschicht-Helfer, der stündlich von selbst aufräumt.</p>
+  <p>Das Besondere: <b>Fast alles läuft lokal.</b> Die Stimmen (17 Stück,
+  von Apples Klassikern bis zur KI-Stimme Kerstin, die komplett auf dem
+  MacBook wohnt), die Spracherkennung (Whisper tippt Diktate ab, offline),
+  die Texterkennung (Apples eingebaute Vision-KI). Kein Abo, keine Cloud-Pflicht,
+  keine laufenden Kosten — auf Hardware, die offiziell längst ausgemustert ist.
+  <b>Beliefert wird, wer sich beliefern lässt.</b></p>
 </section>
 
-<section><h2><span class="punkt" style="background:#2dd4bf"></span>Alltag & Ordnung (8)</h2><div class="galerie"><div class="werkzeug" style="--kat:#2dd4bf"><h3>⏰ Aufräum-Automatik</h3><p>AN/AUS: Downloads sortieren sich stündlich von selbst — auch ohne Toolbox</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>💾 Projekt-Backup</h3><p>Sichert den Playgrounds-Ordner als datiertes ZIP-Archiv</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🧹 Download-Sortierer</h3><p>Sortiert den Downloads-Ordner automatisch nach Dateityp</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🔍 Duplikat-Finder</h3><p>Findet inhaltlich identische Dateien im Downloads-Ordner</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📶 Internet-Check</h3><p>Eingebauter Apple-Speedtest: Download, Upload, Reaktionszeit (~20 Sek.)</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🔑 Passwort-Generator</h3><p>Erzeugt ein sicheres Passwort und kopiert es in die Zwischenablage</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📊 Speicherplatz-Radar</h3><p>Zeigt die größten Dateien und Ordner in deinem Benutzerordner</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>☕️ Wachhalter</h3><p>AN/AUS: Mac bleibt wach (Downloads, lange Läufe) — Display darf ausgehen</p></div></div></section>
-<section><h2><span class="punkt" style="background:#ff4d8d"></span>ADHS-Set (6)</h2><div class="galerie"><div class="werkzeug" style="--kat:#ff4d8d"><h3>🎲 Entscheidungs-Würfel</h3><p>Optionen kopieren (eine pro Zeile), Klick — der Würfel entscheidet</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>⏲ Fokus-Timer</h3><p>25 Minuten Fokus, Anna sagt laut Bescheid — nochmal klicken bricht ab</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🧠 Gehirn-Parkplatz</h3><p>Kopierten Gedanken parken — bei leerer Zwischenablage: Liste zeigen</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🧾 Haushaltsbuch</h3><p>Ausgaben in 2 Sekunden erfassen — ein Feld, Rest macht die App</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>💬 Schnell-Eintrag</h3><p>Dialogfenster: Ausgabe oder Tagebuch-Moment eintragen, ohne App zu öffnen</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🖊 Mini-Tagebuch</h3><p>Ein Satz pro Moment — Beweise sammeln gegen den Wochennebel</p></div></div></section>
-<section><h2><span class="punkt" style="background:#8b7cf8"></span>Stimme & KI (10)</h2><div class="galerie"><div class="werkzeug" style="--kat:#8b7cf8"><h3>🤖 KI-Bildbenenner</h3><p>Benennt Bilder anhand ihres Inhalts um (Google Gemini)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎤 Diktat</h3><p>Klick = aufnehmen, Klick = Text (lokal per Whisper) → Zwischenablage + Parkplatz</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🚑 Fehler-Doktor</h3><p>Fehlermeldung mit Fadenkreuz einrahmen — die KI erklärt sie dir</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🧠 Dokument-Zusammenfassung</h3><p>Erstellt 3-Satz-Zusammenfassungen für Dokumente (Google Gemini)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>📅 Termin-Fänger</h3><p>Kopierten Text nach Terminen absuchen → fertig in den Kalender</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>✍️ Text-Polierer</h3><p>Zwischenablage: Rechtschreibung & Stil korrigieren — Ergebnis liegt bereit</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>📸 Text-Sauger</h3><p>Bereich einrahmen → aller Text darin landet in der Zwischenablage (lokal!)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎨 Traumfabrik</h3><p>Bildidee kopieren → KI malt sie → Ergebnis landet auf dem Schreibtisch</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🗣 Vorlese-Knopf</h3><p>Liest die Zwischenablage vor — nochmal klicken stoppt</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎙 Vorlese-Studio</h3><p>Stimme per Pfeiltasten wählen, probehören, Zwischenablage vorlesen</p></div></div></section>
-<section><h2><span class="punkt" style="background:#60a5fa"></span>Briefings (2)</h2><div class="galerie"><div class="werkzeug" style="--kat:#60a5fa"><h3>📰 Nachrichten-Briefing</h3><p>Die 5 aktuellsten Tagesschau-Schlagzeilen, direkt vom RSS-Feed</p></div><div class="werkzeug" style="--kat:#60a5fa"><h3>🌤 Wetter-Briefing</h3><p>Aktuelles Wetter und Tagesausblick für deinen Standort</p></div></div></section>
-<section><h2><span class="punkt" style="background:#fbbf24"></span>Apps & Lernen (7)</h2><div class="galerie"><div class="werkzeug" style="--kat:#fbbf24"><h3>⚓ Dock — Abend-Lounge</h3><p>Abend-Reflexion mit Missionen und Trophäen (öffnet im Browser)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>💻 Hacker-Terminal</h3><p>Das legendäre grüne Terminal — Marios erstes HTML-Projekt</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🌐 Homepage-Bauer</h3><p>Generiert konmario-pro.com frisch aus deiner Toolbox (Website/index.html)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>📝 Markdown-Merger</h3><p>Führt Markdown-Dateien zusammen und bereinigt KI-Zitate (öffnet im Browser)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🐍 Python-Spielplatz</h3><p>Öffnet JupyterLab mit deinen Lern-Notizbüchern (Python 3.13)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🛸 Schwebe-Cockpit</h3><p>Schwebendes Mini-Cockpit: Uhr, Status, Blitz-Knöpfe — immer im Blick</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🧙 Werkzeug-Schmied</h3><p>Baut das Gerüst für dein nächstes Werkzeug — drei Fragen, fertig</p></div></div></section>
-<section><h2><span class="punkt" style="background:#a3a3c2"></span>Extras (3)</h2><div class="galerie"><div class="werkzeug" style="--kat:#a3a3c2"><h3>✳ Gruß von Fable 5</h3><p>Ein Abschiedsgeschenk — öffnet sich als eigenes Fenster. Maus mitnehmen.</p></div><div class="werkzeug" style="--kat:#a3a3c2"><h3>🐍 Schlange</h3><p>Der Spielhallen-Klassiker als echtes Desktop-Fenster (Pfeiltasten!)</p></div><div class="werkzeug" style="--kat:#a3a3c2"><h3>🌌 Die Unendlichkeits-Maschine</h3><p>Zoomt live in ein mathematisches Objekt mit unendlich viel Detail</p></div></div></section>
+<section>
+  <h2><span class="punkt" style="background:var(--akzent);color:var(--akzent)"></span>Die Chronik — eine Woche im Zeitraffer</h2>
+  <div class="chronik">
+    <div class="tag"><h3>Tag 1 · Die Geburt</h3>
+      <p>Aus <b>zwei Skripten in einem unordentlichen Ordner</b> wird eine App.
+      Das eingebaute Fenster-Modul stürzt sofort ab — aus der Not entsteht
+      die Architektur: lokaler Server, Browser als Anzeige. Wie bei den Großen.</p></div>
+    <div class="tag"><h3>Tag 2 · Die Stimme</h3>
+      <p>Die Toolbox lernt <b>sprechen</b> — erst mit Apple-Stimmen, dann mit
+      einer lokalen KI-Stimme (Piper), am Ende mit 17 Stimmen aus vier
+      Technologien. Dazu: Menüleisten-Icon und die erste Nachtschicht.</p></div>
+    <div class="tag"><h3>Tag 3 · Das System</h3>
+      <p>Das <b>ADHS-Set</b> entsteht: Fokus-Timer mit Stimm-Ansage,
+      Entscheidungs-Würfel, Gehirn-Parkplatz, Haushaltsbuch und Mini-Tagebuch
+      mit echten Datenbanken. Ein Feld, zwei Sekunden, fertig.</p></div>
+    <div class="tag"><h3>Tag 4 · Die Sinne</h3>
+      <p>Umzug auf modernes Python — und die Toolbox lernt <b>hören</b>
+      (Whisper, lokal) und <b>sehen</b> (Texterkennung, Fehler-Doktor).
+      Der Werkzeug-Schmied übernimmt die Zukunft: Werkzeuge bauen jetzt Werkzeuge.</p></div>
+    <div class="tag"><h3>Tag 5 · Das Schaufenster</h3>
+      <p><b>konmario-pro.de geht live</b> — GitHub Pages, eigene Domain,
+      DNS von Hand verkabelt. Diese Seite, die du gerade liest, wird von
+      einem Toolbox-Werkzeug generiert. Der Kreis schließt sich.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="punkt" style="background:var(--teal);color:var(--teal)"></span>Probier ein Werkzeug — live</h2>
+  <p style="color:var(--sub);font-size:15px;margin-bottom:14px">
+  Die 🌌 Unendlichkeits-Maschine lief zuerst als Text-Grafik im Terminal der
+  Toolbox. Hier rechnet dein Browser sie in Farbe: <b style="color:var(--text)">Klick
+  irgendwo hinein, um zu zoomen</b> — es kommt immer neues Detail. Für immer.
+  Die ganze Formel: <b style="color:var(--text)">z&nbsp;=&nbsp;z·z&nbsp;+&nbsp;c</b></p>
+  <canvas id="mandelbrot"></canvas>
+  <div class="mandel-zeile">
+    <span id="mandel-info">Vergrößerung: 1×</span>
+    <button id="mandel-reset">↺ Zurück zum Anfang</button>
+  </div>
+</section>
+
+<section>
+  <h2><span class="punkt" style="background:var(--pink);color:var(--pink)"></span>Die Werkzeuge</h2>
+  <input id="suche" type="text" placeholder="Werkzeug suchen… (z.B. 'Stimme', 'Backup', 'ADHS')">
+  <div class="filter" id="filter"></div>
+</section>
+
+<section><h2><span class="punkt" style="background:#2dd4bf;color:#2dd4bf"></span>Alltag & Ordnung (11)</h2><div class="galerie"><div class="werkzeug" style="--kat:#2dd4bf"><h3>⏰ Aufräum-Automatik</h3><p>AN/AUS: Downloads sortieren sich stündlich von selbst — auch ohne Toolbox</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>💾 Projekt-Backup</h3><p>Sichert den Playgrounds-Ordner als datiertes ZIP-Archiv</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🧹 Download-Sortierer</h3><p>Sortiert den Downloads-Ordner automatisch nach Dateityp</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🔍 Duplikat-Finder</h3><p>Findet inhaltlich identische Dateien im Downloads-Ordner</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📶 Internet-Check</h3><p>Eingebauter Apple-Speedtest: Download, Upload, Reaktionszeit (~20 Sek.)</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>🔑 Passwort-Generator</h3><p>Erzeugt ein sicheres Passwort und kopiert es in die Zwischenablage</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📺 Pro7-Türöffner</h3><p>Öffnet ProSieben live bei Joyn (Konto nötig — die Privaten verschenken nichts)</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📻 Radio Fritz</h3><p>Klick = Fritz an (rbb-Livestream), Klick = aus. Mehr kann er nicht. Absicht.</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📊 Speicherplatz-Radar</h3><p>Zeigt die größten Dateien und Ordner in deinem Benutzerordner</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>📺 Öffentlich-Rechtliches TV</h3><p>ARD · ZDF · HR · arte als Livestream — Auswahl per Klick, eigenes Fenster</p></div><div class="werkzeug" style="--kat:#2dd4bf"><h3>☕️ Wachhalter</h3><p>AN/AUS: Mac bleibt wach (Downloads, lange Läufe) — Display darf ausgehen</p></div></div></section>
+<section><h2><span class="punkt" style="background:#ff4d8d;color:#ff4d8d"></span>ADHS-Set (6)</h2><div class="galerie"><div class="werkzeug" style="--kat:#ff4d8d"><h3>🎲 Entscheidungs-Würfel</h3><p>Optionen kopieren (eine pro Zeile), Klick — der Würfel entscheidet</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>⏲ Fokus-Timer</h3><p>25 Minuten Fokus, Anna sagt laut Bescheid — nochmal klicken bricht ab</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🧠 Gehirn-Parkplatz</h3><p>Kopierten Gedanken parken — bei leerer Zwischenablage: Liste zeigen</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🧾 Haushaltsbuch</h3><p>Ausgaben in 2 Sekunden erfassen — ein Feld, Rest macht die App</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>💬 Schnell-Eintrag</h3><p>Dialogfenster: Ausgabe oder Tagebuch-Moment eintragen, ohne App zu öffnen</p></div><div class="werkzeug" style="--kat:#ff4d8d"><h3>🖊 Mini-Tagebuch</h3><p>Ein Satz pro Moment — Beweise sammeln gegen den Wochennebel</p></div></div></section>
+<section><h2><span class="punkt" style="background:#8b7cf8;color:#8b7cf8"></span>Stimme & KI (10)</h2><div class="galerie"><div class="werkzeug" style="--kat:#8b7cf8"><h3>🤖 KI-Bildbenenner</h3><p>Benennt Bilder anhand ihres Inhalts um (Google Gemini)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎤 Diktat</h3><p>Klick = aufnehmen, Klick = Text (lokal per Whisper) → Zwischenablage + Parkplatz</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🚑 Fehler-Doktor</h3><p>Fehlermeldung mit Fadenkreuz einrahmen — die KI erklärt sie dir</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🧠 Dokument-Zusammenfassung</h3><p>Erstellt 3-Satz-Zusammenfassungen für Dokumente (Google Gemini)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>📅 Termin-Fänger</h3><p>Kopierten Text nach Terminen absuchen → fertig in den Kalender</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>✍️ Text-Polierer</h3><p>Zwischenablage: Rechtschreibung & Stil korrigieren — Ergebnis liegt bereit</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>📸 Text-Sauger</h3><p>Bereich einrahmen → aller Text darin landet in der Zwischenablage (lokal!)</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎨 Traumfabrik</h3><p>Bildidee kopieren → KI malt sie → Ergebnis landet auf dem Schreibtisch</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🗣 Vorlese-Knopf</h3><p>Liest die Zwischenablage vor — nochmal klicken stoppt</p></div><div class="werkzeug" style="--kat:#8b7cf8"><h3>🎙 Vorlese-Studio</h3><p>Stimme per Pfeiltasten wählen, probehören, Zwischenablage vorlesen</p></div></div></section>
+<section><h2><span class="punkt" style="background:#60a5fa;color:#60a5fa"></span>Briefings (2)</h2><div class="galerie"><div class="werkzeug" style="--kat:#60a5fa"><h3>📰 Nachrichten-Briefing</h3><p>Die 5 aktuellsten Tagesschau-Schlagzeilen, direkt vom RSS-Feed</p></div><div class="werkzeug" style="--kat:#60a5fa"><h3>🌤 Wetter-Briefing</h3><p>Aktuelles Wetter und Tagesausblick für deinen Standort</p></div></div></section>
+<section><h2><span class="punkt" style="background:#fbbf24;color:#fbbf24"></span>Apps & Lernen (7)</h2><div class="galerie"><div class="werkzeug" style="--kat:#fbbf24"><h3>⚓ Dock — Abend-Lounge</h3><p>Abend-Reflexion mit Missionen und Trophäen (öffnet im Browser)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>💻 Hacker-Terminal</h3><p>Das legendäre grüne Terminal — Marios erstes HTML-Projekt</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🌐 Homepage-Bauer</h3><p>Generiert konmario-pro.de und lädt sie direkt zu GitHub hoch</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>📝 Markdown-Merger</h3><p>Führt Markdown-Dateien zusammen und bereinigt KI-Zitate (öffnet im Browser)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🐍 Python-Spielplatz</h3><p>Öffnet JupyterLab mit deinen Lern-Notizbüchern (Python 3.13)</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🛸 Schwebe-Cockpit</h3><p>Schwebendes Mini-Cockpit: Uhr, Status, Blitz-Knöpfe — immer im Blick</p></div><div class="werkzeug" style="--kat:#fbbf24"><h3>🧙 Werkzeug-Schmied</h3><p>Baut das Gerüst für dein nächstes Werkzeug — drei Fragen, fertig</p></div></div></section>
+<section><h2><span class="punkt" style="background:#a3a3c2;color:#a3a3c2"></span>Extras (3)</h2><div class="galerie"><div class="werkzeug" style="--kat:#a3a3c2"><h3>✳ Gruß von Fable 5</h3><p>Ein Abschiedsgeschenk — öffnet sich als eigenes Fenster. Maus mitnehmen.</p></div><div class="werkzeug" style="--kat:#a3a3c2"><h3>🐍 Schlange</h3><p>Der Spielhallen-Klassiker als echtes Desktop-Fenster (Pfeiltasten!)</p></div><div class="werkzeug" style="--kat:#a3a3c2"><h3>🌌 Die Unendlichkeits-Maschine</h3><p>Zoomt live in ein mathematisches Objekt mit unendlich viel Detail</p></div></div></section>
+<section><h2><span class="punkt" style="background:#f97316;color:#f97316"></span>🔨 Frisch geschmiedet (1)</h2><div class="galerie"><div class="werkzeug" style="--kat:#f97316"><h3>, gave up:false übersetzungtool, gave up:false</h3><p>, gave up:false</p></div></div></section>
 
 <footer>
-  <span class="stern">✳</span>
-  Konmario-pro · by Fable&nbsp;5 + Mario · Stand: 11.07.2026<br>
-  Läuft privat und lokal — diese Seite ist nur das Schaufenster.
+  <span class="stern" id="stern" title="✳">✳</span>
+  Konmario-pro · by Fable&nbsp;5 + Mario · Stand: 13.07.2026<br>
+  Quellcode-Zuhause: <a href="https://github.com/konmario/konmario-pro">github.com/konmario</a><br>
+  <span class="kleiner">Diese Seite wurde nicht geschrieben, sondern generiert —
+  vom 🌐 Homepage-Bauer, einem der 40 Werkzeuge.
+  Die App selbst läuft privat und lokal; das hier ist nur das Schaufenster.</span>
 </footer>
 
 </div>
+<script>
+  // Sanftes Einschweben. Wichtig: .rev (= unsichtbar) wird erst HIER per
+  // JavaScript vergeben — fällt JS aus, ist die Seite ganz normal lesbar.
+  // Und beobachtet werden nur kleine Häppchen, nie ganze Riesen-Sektionen.
+  const beobachter = new IntersectionObserver((eintraege) => {
+    for (const e of eintraege) if (e.isIntersecting) {
+      e.target.classList.add("da");
+      beobachter.unobserve(e.target);
+    }
+  }, { threshold: 0.05 });
+  document.querySelectorAll(".zahlen, .story, .tag, h2, .werkzeug").forEach(el => {
+    el.classList.add("rev");
+    beobachter.observe(el);
+  });
+  // Sicherheitsnetz: Falls der Beobachter in irgendeinem Browser stumm
+  // bleibt, wird nach 1,2s einfach ALLES gezeigt. Lieber ohne Animation
+  // als ohne Inhalt — Inhalt schlägt Schönheit, immer.
+  setTimeout(() => {
+    if (!document.querySelector(".da"))
+      document.querySelectorAll(".rev").forEach(el => el.classList.add("da"));
+  }, 1200);
+
+  // ── Die lebendige Galerie: Suche + Regal-Filter ─────────────────────
+  const regale = [...document.querySelectorAll("section")].filter(
+    s => s.querySelector(".galerie"));
+  const filterLeiste = document.getElementById("filter");
+  let aktiverFilter = null;
+
+  for (const regal of regale) {
+    const name = regal.querySelector("h2").textContent.replace(/\(\d+\)/, "").trim();
+    const chip = document.createElement("span");
+    chip.className = "chip";
+    chip.textContent = name;
+    chip.onclick = () => {
+      aktiverFilter = (aktiverFilter === regal) ? null : regal;
+      document.querySelectorAll(".chip").forEach(c => c.classList.remove("an"));
+      if (aktiverFilter) chip.classList.add("an");
+      filtern();
+    };
+    filterLeiste.appendChild(chip);
+  }
+
+  const sucheEl = document.getElementById("suche");
+  sucheEl.addEventListener("input", filtern);
+
+  function filtern() {
+    const suche = sucheEl.value.toLowerCase();
+    for (const regal of regale) {
+      let treffer = 0;
+      for (const karte of regal.querySelectorAll(".werkzeug")) {
+        const passt = karte.textContent.toLowerCase().includes(suche);
+        karte.style.display = passt ? "" : "none";
+        if (passt) treffer++;
+      }
+      const zeigen = treffer > 0 && (!aktiverFilter || aktiverFilter === regal);
+      regal.style.display = zeigen ? "" : "none";
+    }
+  }
+
+  // ── Das spielbare Mandelbrot: z = z·z + c, live im Browser ─────────
+  const leinwand = document.getElementById("mandelbrot");
+  const stift = leinwand.getContext("2d");
+  const start = { x: -0.6, y: 0, breite: 3.4 };
+  let sicht = { ...start };
+
+  function mandelbrotMalen() {
+    const b = leinwand.width = leinwand.clientWidth;
+    const h = leinwand.height = leinwand.clientHeight;
+    const hoehe = sicht.breite * h / b;
+    const zoom = start.breite / sicht.breite;
+    const maxIter = Math.min(600, 90 + Math.floor(60 * Math.log2(zoom + 1)));
+    document.getElementById("mandel-info").textContent =
+      "Vergrößerung: " + (zoom < 100 ? zoom.toFixed(1) : Math.round(zoom).toLocaleString("de-DE")) + "×";
+
+    const bild = stift.createImageData(b, h);
+    let zeile = 0;
+    (function malStreifen() {
+      const ende = Math.min(zeile + 40, h);
+      for (; zeile < ende; zeile++) {
+        const ci = sicht.y + hoehe * (zeile / h - 0.5);
+        for (let sp = 0; sp < b; sp++) {
+          const cr = sicht.x + sicht.breite * (sp / b - 0.5);
+          let zr = 0, zi = 0, i = 0;
+          while (zr * zr + zi * zi <= 4 && i < maxIter) {
+            const t = zr * zr - zi * zi + cr;
+            zi = 2 * zr * zi + ci; zr = t; i++;
+          }
+          const p = (zeile * b + sp) * 4;
+          if (i >= maxIter) { bild.data[p+3] = 255; }  // innen: schwarz
+          else {
+            // Farbe im Toolbox-Look: von Violett über Pink nach Türkis
+            const ton = (280 + i * 4) % 360;
+            const [r, g, bl] = hsl(ton, 0.85, Math.min(0.62, 0.25 + i / maxIter));
+            bild.data[p] = r; bild.data[p+1] = g; bild.data[p+2] = bl;
+            bild.data[p+3] = 255;
+          }
+        }
+      }
+      stift.putImageData(bild, 0, 0);
+      if (zeile < h) setTimeout(malStreifen, 0);
+    })();
+  }
+
+  function hsl(hue, s, l) {
+    const a = s * Math.min(l, 1 - l);
+    const f = n => {
+      const k = (n + hue / 30) % 12;
+      return Math.round(255 * (l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1))));
+    };
+    return [f(0), f(8), f(4)];
+  }
+
+  leinwand.addEventListener("click", (e) => {
+    const kasten = leinwand.getBoundingClientRect();
+    sicht.x += sicht.breite * ((e.clientX - kasten.left) / kasten.width - 0.5);
+    sicht.y += (sicht.breite * kasten.height / kasten.width) *
+               ((e.clientY - kasten.top) / kasten.height - 0.5);
+    sicht.breite /= 3;
+    mandelbrotMalen();
+  });
+  document.getElementById("mandel-reset").onclick = () => {
+    sicht = { ...start };
+    mandelbrotMalen();
+  };
+  mandelbrotMalen();
+
+  // ── Die kleine Überraschung (Mario: bitte selbst entdecken!) ───────
+  document.getElementById("stern").addEventListener("click", () => {
+    for (let i = 0; i < 24; i++) {
+      const f = document.createElement("span");
+      f.className = "funke";
+      f.textContent = ["✳", "🧰", "✨"][i % 3];
+      f.style.left = Math.random() * 100 + "vw";
+      f.style.animationDelay = Math.random() * 0.5 + "s";
+      document.body.appendChild(f);
+      setTimeout(() => f.remove(), 2600);
+    }
+    let b = document.getElementById("botschaft");
+    if (!b) {
+      b = document.createElement("p");
+      b.id = "botschaft";
+      b.textContent = "Bleib neugierig. Bau weiter. — Fable 5, Juli 2026";
+      document.querySelector("footer").appendChild(b);
+      requestAnimationFrame(() => requestAnimationFrame(() => b.classList.add("zeig")));
+    }
+  });
+</script>
 </body>
 </html>
