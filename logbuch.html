@@ -4,8 +4,29 @@
 <title>Bautagebuch — Konmario-pro</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖋</text></svg>">
 <style>
-  :root { --bg:#12121c; --card:#1e1e30; --text:#e8e8f4; --sub:#8f8fb0;
-          --akzent:#8b7cf8; --pink:#ff4d8d; --teal:#2dd4bf; }
+  /* Dieselbe Farbwelt wie App und Hauptseite — die Werte stammen aus
+     Toolbox/toolbox_symbole.py (FARBWELT_CSS). Das Logbuch hatte bis
+     zum 31.07.2026 seine eigene Palette und fiel dadurch aus dem Rahmen. */
+  :root {
+    --bg:          #0f0f0f;
+    --card:        #191919;
+    --card-hover:  #242424;
+    --line:        #333333;
+    --text:        #f5f2ec;
+    --sub:         #9b968c;
+    --dim:         #645f57;
+    --akzent:      #ff4a1c;
+    --akzent2:     #e6003c;
+    --auf-akzent:  #2b0a02;
+    --term-bg:     #000000;
+    --term-text:   #f5f2ec;
+    --ok:          #00c2a0;
+    --err:         #ff4a1c;
+    --warn:        #ffd400;
+    /* Altnamen, damit das Template unverändert bleiben kann. */
+    --pink: var(--akzent2);
+    --teal: var(--ok);
+  }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:-apple-system,"Helvetica Neue",sans-serif;
          background:var(--bg); color:var(--text); line-height:1.6; }
@@ -26,6 +47,13 @@
 <h1>🖋 BAUTAGEBUCH</h1>
 <p class="unter">Was in der Konmario-pro-Werkstatt passiert — chronologisch,
 ungeschönt, selbst veröffentlicht. <a href="/">← zurück zur Hauptseite</a></p>
+<div class="eintrag"><div class="wann">27.07.2026 · 22:05 Uhr</div><p>🎨 Der Tag der Farbe. Die Oberfläche hatte zwölf benannte Farben und **vierzehn**, die fest im Code klebten und jeden Themenwechsel überlebten — auf die falsche Art. Jetzt sind es null: Alles läuft über Tokens, und die Website bedient sich aus derselben Quelle. Zum ersten Mal sehen App und konmario-pro.de aus wie dasselbe Produkt.
+
+Dazu **48 neu gezeichnete Symbole** für alle 53 Werkzeuge (vorher fielen neun auf einen allgemeinen Schraubenschlüssel zurück), alle Werkzeuge in Regale einsortiert — und ein Startklang, den Python sich selbst aus drei Zahlen baut, während ein Lichtschein einmal durch den Schriftzug läuft.</p></div>
+<div class="eintrag"><div class="wann">26.07.2026 · 18:15 Uhr</div><p>✂️ Neu in macOS 14: Der Rechner kann selbst erkennen, was auf einem Foto das Motiv ist, und es vom Hintergrund trennen — dieselbe Technik wie in der Fotos-App. Daraus wurde der **Freisteller**, Werkzeug Nummer 53. Rund eine halbe Sekunde pro Bild, komplett lokal, ohne Upload, ohne Schlüssel, ohne Guthaben. Dahinter liegt bilder.py als neuer zentraler Adapter, damit auch die Traumfabrik davon hat.
+
+Nebenbei fiel ein stiller Fehler auf: Die Liste der Prozesse, die beim Stopp des Vorlesens beendet werden müssen, stand **dreimal** im Code — und in einer der drei Kopien fehlte Piper. Wer eine lokale KI-Stimme gewählt hatte, dem redete der Chat einfach weiter. Jetzt steht sie einmal, im Sprachrohr selbst.</p></div>
+<div class="eintrag"><div class="wann">25.07.2026 · 21:40 Uhr</div><p>🖥 Ein Betriebssystem-Update, das mehr war als eine Zahl: Von Ventura auf **Sonoma 14.8.7**, per OpenCore Legacy Patcher auf ein MacBook, das Apple längst abgeschrieben hat. Der Nebeneffekt ist der eigentliche Gewinn — Homebrew stuft macOS 14 auf Intel als Tier 1 ein. Wo früher stundenlang aus Quellcode gebaut wurde, lädt jetzt ein fertiges Paket. Und beim Nachmessen stellte sich heraus: Die Werkstatt ist kein 2012er, sondern ein **MacBook Pro 13" Retina von Ende 2013** mit Haswell-Kern. Zwei Jahre jünger als gedacht, und AVX2 kann er auch.</p></div>
 <div class="eintrag"><div class="wann">15.07.2026 · 11:29 Uhr</div><p>**15.07.2026 – Frühjahrsputz, ein Schreckmoment und ein neues Werkzeug**
 
 Der Tag begann mit Aufräumen: das 366 MB schwere Geister-Projekt "Antigravity" flog raus (591 → 224 MB), und drei Text-Werkzeuge (Text-Polierer, Termin-Fänger, Dokument-Zusammenfassung) zogen von Gemini zu Groq um — schneller, und google-generativeai steckt jetzt nur noch in einem einzigen Werkzeug statt vier.
